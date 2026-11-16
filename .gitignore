@@ -1,0 +1,16 @@
+# Secrets and keys - never commit
+*.pem
+*.ppk
+*.key
+.env
+.env.*
+secret*.txt
+credentials*
+.aws/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+__pycache__/
+node_modules/

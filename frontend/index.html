@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PostPulse — Social Media Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Background grid -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">PostPulse</span>
+    </div>
+    <div class="header-tag">AI · NLP · Social Intelligence</div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow">Powered by AWS Lambda + Custom NLP</div>
+    <h1 class="hero-title">Decode the <em>pulse</em><br/>of any post.</h1>
+    <p class="hero-sub">Paste any social media post — tweet, caption, thread — and get instant AI-powered sentiment, entities, key phrases, and readability analysis.</p>
+  </section>
+
+  <!-- Input Card -->
+  <main class="main-container">
+    <div class="input-card">
+      <div class="input-card-header">
+        <span class="platform-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </span>
+        <span class="input-label">Paste your social media post</span>
+        <span class="char-counter" id="charCounter">0 / 10,000</span>
+      </div>
+      <textarea
+        id="postInput"
+        placeholder="e.g. Just tried the new iPhone 16 and honestly it's incredible. The camera is outstanding, battery life is amazing — definitely my best upgrade yet! 📱✨ #Apple #Tech"
+        maxlength="10000"
+      ></textarea>
+      <div class="input-card-footer">
+        <div class="sample-btns">
+          <span class="sample-label">Try a sample:</span>
+          <button class="sample-btn" onclick="loadSample('positive')">😍 Positive</button>
+          <button class="sample-btn" onclick="loadSample('negative')">😤 Negative</button>
+          <button class="sample-btn" onclick="loadSample('mixed')">🤔 Mixed</button>
+        </div>
+        <button id="analyzeBtn" onclick="analyzePost()">
+          <span class="btn-text">Analyze Post</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Error message -->
+    <div id="errorMsg" class="error-msg hidden"></div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-state hidden">
+      <div class="loading-bar"><div class="loading-fill"></div></div>
+      <div class="loading-steps">
+        <span class="step active" id="step1">⬡ Parsing text</span>
+        <span class="step" id="step2">⬡ Sentiment analysis</span>
+        <span class="step" id="step3">⬡ Entity extraction</span>
+        <span class="step" id="step4">⬡ Key phrases</span>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="results hidden">
+
+      <!-- Top bar -->
+      <div class="results-header">
+        <div class="results-title">Analysis Results</div>
+        <div class="results-meta" id="resultsMeta"></div>
+      </div>
+
+      <!-- Sentiment Card (prominent) -->
+      <div class="result-card sentiment-card" id="sentimentCard">
+        <div class="card-label">Sentiment</div>
+        <div class="sentiment-main">
+          <div class="sentiment-badge" id="sentimentBadge"></div>
+          <div class="sentiment-confidence" id="sentimentConfidence"></div>
+        </div>
+        <div class="sentiment-bars" id="sentimentBars"></div>
+        <div class="sentiment-words" id="sentimentWords"></div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num" id="statWords">—</div>
+          <div class="stat-label">Words</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statSentences">—</div>
+          <div class="stat-label">Sentences</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statChars">—</div>
+          <div class="stat-label">Characters</div>
+        </div>
+        <div class="stat-box highlight">
+          <div class="stat-num" id="statReadability">—</div>
+          <div class="stat-label">Readability</div>
+          <div class="stat-sub" id="statReadabilityLevel"></div>
+        </div>
+      </div>
+
+      <!-- Entities -->
+      <div class="result-card" id="entitiesCard">
+        <div class="card-label">Detected Entities</div>
+        <div class="entities-grid" id="entitiesGrid"></div>
+      </div>
+
+      <!-- Key Phrases -->
+      <div class="result-card" id="phrasesCard">
+        <div class="card-label">Key Phrases</div>
+        <div class="phrases-list" id="phrasesList"></div>
+      </div>
+
+      <!-- Top Words -->
+      <div class="result-card" id="topWordsCard">
+        <div class="card-label">Top Words</div>
+        <div class="top-words-grid" id="topWordsGrid"></div>
+      </div>
+
+      <!-- Storage info -->
+      <div class="storage-note" id="storageNote"></div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>CS524 Cloud Computing · Stevens Institute of Technology · Spring 2026</span>
+    <span class="footer-stack">AWS S3 · Lambda · CloudFront · CloudWatch</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
