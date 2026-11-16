@@ -30,7 +30,9 @@ Browser (HTML/CSS/JS)  --POST-->  AWS Lambda (Function URL, Python)  -->  Amazon
 - Consider adding auth or throttling on the Function URL to prevent abuse.
 
 ## My role
-<!-- TODO: add 2–3 bullets on what you built (e.g., Lambda NLP engine, frontend, IAM/S3 setup, deployment) -->
+- Deployed the app on AWS: configured the Lambda function, Function URL, S3 bucket, and IAM permissions
+- Connected the frontend to the serverless backend and tested the end-to-end flow
+- Documented the architecture and security considerations (CORS, least-privilege IAM, Function URL abuse)
 
 ## Author
 Vignesh Prasad — M.S. Cybersecurity, Stevens Institute of Technology
